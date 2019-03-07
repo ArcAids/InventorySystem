@@ -17,15 +17,19 @@ namespace InventorySystem {
         [SerializeField]
         LayerMask draggableMask;
 
+        [SerializeField]
+        Image draggedItemPreviewImage;
+
         Vector2 mouseDownPosition;
         Vector2 mousePosition;
 
         bool dragged = false;
         bool isActive = false;
-        public static GameObject selectedItem;
+        public GameObject selectedItem;
 
         IDraggable draggableObject;
         IRecievable recievableObject;
+        IRecievable objectDraggedFrom;
         IDraggable lastSelectedObject;
 
         [SerializeField]
@@ -42,6 +46,7 @@ namespace InventorySystem {
             //Fetch the Event System from the Scene
             if (m_EventSystem == null)
                 m_EventSystem = FindObjectOfType<EventSystem>();
+            draggedItemPreviewImage.gameObject.SetActive(false);
         }
 
         private void OnEnable()
@@ -63,9 +68,11 @@ namespace InventorySystem {
             if (Input.GetMouseButtonDown(0))
             {
                 lastSelectedObject = draggableObject;
-                draggableObject = DetectDraggables();
-                if (draggableObject != null)
+                IDraggable tempDraggable = DetectDraggables();
+                objectDraggedFrom = DetectRecievables();
+                if (tempDraggable!= null)
                 {
+                    draggableObject = tempDraggable;
                     if (lastSelectedObject != null)
                         lastSelectedObject.OnDeselected();
                     draggableObject.OnSelected();
@@ -79,7 +86,8 @@ namespace InventorySystem {
                     mousePosition = Input.mousePosition;
                     if (dragged)
                     {
-                        draggableObject.OnDragged(mousePosition);
+                        //draggableObject.OnDragged();
+                        draggedItemPreviewImage.transform.position = mousePosition;
                         recievableObject = DetectRecievables();
                         if (recievableObject != null)
                         {
@@ -90,6 +98,9 @@ namespace InventorySystem {
                     if (Vector2.Distance(mouseDownPosition, mousePosition) > dragThreshold)  // TODO: Optimize.
                     {
                         dragged = true;
+                        draggedItemPreviewImage.sprite=draggableObject.OnStartDrag();
+                        draggedItemPreviewImage.transform.position = mousePosition;
+                        draggedItemPreviewImage.gameObject.SetActive(true);
                     }
                 }
             }
@@ -97,19 +108,29 @@ namespace InventorySystem {
             {
                 if (draggableObject != null)         //something is selected.
                 {
+                    draggedItemPreviewImage.gameObject.SetActive(false);
                     recievableObject = DetectRecievables();
-                    if (recievableObject != null)         //object is over something.
+                    if (!dragged)
+                        return;
+                    if (recievableObject != null && recievableObject!=objectDraggedFrom)         //object is over something other than where it started from.
                     {
-                        draggableObject.OnLetGo(mousePosition);
-                        recievableObject.OnObjectAdded(selectedItem);
-                    }
-                    else
-                    {
-                        if (dragged)
+                        IDraggable tempdraggable = recievableObject.OnObjectAdded(selectedItem);
+                        if (tempdraggable != null)
                         {
-                            draggableObject.OnCancelDrag();  //Deck/Card is Moved
+                            if(tempdraggable != draggableObject)
+                            { 
+                                draggableObject.OnLetGo();
+                                tempdraggable.OnSelected();
+                                draggableObject = tempdraggable;
+                                return;
+                            }
+                            
                         }
+                        
                     }
+                     draggableObject.OnCancelDrag(); 
+                    
+                    
                 }
             }
 
@@ -172,13 +193,14 @@ namespace InventorySystem {
     {
         void OnSelected();
         void OnDeselected();
-        void OnLetGo(Vector2 screenPosition);
+        void OnLetGo();
         void OnCancelDrag();
-        void OnDragged(Vector2 screenPosition);
+        Sprite OnStartDrag();
+        void OnDragged();
     }
     public interface IRecievable
     {
-        bool OnObjectAdded(GameObject selectedObject);
+        IDraggable OnObjectAdded(GameObject selectedObject);
         void OnObjectHoveringOver(GameObject selectedObject);
     }
 }

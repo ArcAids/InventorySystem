@@ -65,3 +65,11 @@ public class Item
     public float agility;
     public float intel;
 }
+
+public class ItemData : Item
+{
+    public float dodgeChance;
+    public float HP;
+    public float mana;
+    public float critical;
+}
