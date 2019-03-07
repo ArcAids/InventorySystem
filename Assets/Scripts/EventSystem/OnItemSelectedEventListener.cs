@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
-//using SubjectNerd.Utilities;
-using InventorySystem;
 
 public class OnItemSelectedEventListener : MonoBehaviour
 {
@@ -13,7 +8,6 @@ public class OnItemSelectedEventListener : MonoBehaviour
 
     private void OnEnable()
     {
-
         gameEvent.Register(this);
 
     }

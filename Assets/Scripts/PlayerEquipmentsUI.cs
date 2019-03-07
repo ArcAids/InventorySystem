@@ -8,17 +8,15 @@ namespace InventorySystem
     public class PlayerEquipmentsUI : MonoBehaviour
     {
         [SerializeField]
-        List<ItemHolder> EquipSlots;
+        InventoryData equippedItemsData;
         [SerializeField]
-        PlayerStats stats;
+        List<ItemHolder> EquipSlots;
 
-        private void Start()
-        {
-            EquipmentsUpdated();
-        }
-        public void EquipItem(Item item)
+        public void EquipItem(Item item, bool isWeaponSlot1)
         {
             int slotIndex = (int)item.slot;
+            if (slotIndex==0 && isWeaponSlot1)
+                slotIndex = 4;
             ItemUI itemEquipped = EquipSlots[slotIndex].itemUI;
             if (item != itemEquipped.itemInfo)
             {
@@ -31,49 +29,7 @@ namespace InventorySystem
             {
                 EquipSlots[slotIndex].RemoveItem();
             }
-            EquipmentsUpdated();
-        }
-
-        public void EquipmentsUpdated()
-        {
-            stats.UpdateValues(CalculateNewValues());
-
-        }
-
-        public void ItemSelected(Item item)
-        {
-            stats.PreviewInfo(CalculateNewValues(item));
-        }
-
-        ItemData CalculateNewValues(Item item=null) 
-        {
-            bool oneWeaponChecked = false;
-            ItemData overAllStats = new ItemData();
-            foreach (var equipment in EquipSlots)
-            {
-                Item equippedItem = equipment.itemUI.itemInfo;
-                if (equippedItem!=null)
-                {
-                    if (item != null && !oneWeaponChecked && equippedItem.slot == item.slot)
-                    {
-                        equippedItem = item;
-                        if(item.slot==ItemSlot.Weapon)
-                        oneWeaponChecked = true;
-                    }
-                    overAllStats.damage += equipment.itemUI.itemInfo.damage;
-                    overAllStats.defence += equipment.itemUI.itemInfo.defence;
-                    overAllStats.agility += equipment.itemUI.itemInfo.agility;
-                    overAllStats.strength += equipment.itemUI.itemInfo.strength;
-                    overAllStats.intel += equipment.itemUI.itemInfo.intel; 
-                }
-                else
-                {
-
-                }
-                // TODO: Add additional multiplier values
-
-            }
-            return overAllStats;
+            equippedItemsData.EquipmentsUpdated();
         }
 
     }

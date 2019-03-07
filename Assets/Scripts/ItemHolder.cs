@@ -12,6 +12,8 @@ namespace InventorySystem
         [SerializeField]
         ItemSlot holds;
         [SerializeField]
+        bool isWeapon1Slot;
+        [SerializeField]
         PlayerEquipmentsUI player;
         [SerializeField]
         public ItemUI itemUI;
@@ -24,7 +26,7 @@ namespace InventorySystem
             {
                 if (selectedItem.itemInfo.slot == holds)
                 {
-                    AddItem(selectedItem.itemInfo);
+                    player.EquipItem(selectedItem.itemInfo,isWeapon1Slot);
                     return selectedItem;
                 }
             }

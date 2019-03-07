@@ -51,7 +51,7 @@ namespace InventorySystem
         public void EquipDequip()
         {
             if (item!=null)
-                playerEquipments.EquipItem(item);
+                playerEquipments.EquipItem(item, true);
         }
     }
 }
