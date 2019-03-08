@@ -8,6 +8,7 @@ namespace InventorySystem
     public class InventoryData: ScriptableObject
     {
         public EquippedGears gears;
+
         private List<OnEquipmentChangedEventListener> eventListeners = new List<OnEquipmentChangedEventListener>();
 
         public void EquipmentsUpdated()
@@ -15,6 +16,20 @@ namespace InventorySystem
             for (int i = eventListeners.Count - 1; i >= 0; i--)
             {
                 eventListeners[i].OnEventRaised(gears);
+            }
+        }
+        public void EquipmentsUpdated(ItemUI item)
+        {
+            for (int i = eventListeners.Count - 1; i >= 0; i--)
+            {
+                eventListeners[i].OnItemEquipRaised(item);
+            }
+        }
+        public void EquipmentDequiped(ItemUI item)
+        {
+            for (int i = eventListeners.Count - 1; i >= 0; i--)
+            {
+                eventListeners[i].OnItemDequipRaised(item);
             }
         }
 

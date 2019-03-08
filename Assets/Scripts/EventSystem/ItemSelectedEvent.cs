@@ -8,7 +8,7 @@ public class ItemSelectedEvent : ScriptableObject
 {
     private List<OnItemSelectedEventListener> eventListeners = new List<OnItemSelectedEventListener>();
 
-    public void Select(Item item)
+    public void Raise(Item item)
     {
         for (int i = eventListeners.Count - 1; i >= 0; i--)
         {

@@ -19,7 +19,7 @@ namespace InventorySystem
         public ItemUI itemUI;
 
 
-        public IDraggable OnObjectAdded(GameObject selectedObject)
+        public GameObject OnObjectAdded(GameObject selectedObject)
         {
             ItemUI selectedItem=selectedObject.GetComponent<ItemUI>();
             if (selectedItem != null)
@@ -27,7 +27,7 @@ namespace InventorySystem
                 if (selectedItem.itemInfo.slot == holds)
                 {
                     player.EquipItem(selectedItem.itemInfo,isWeapon1Slot);
-                    return selectedItem;
+                    return itemUI.gameObject;
                 }
             }
             return null;
@@ -35,11 +35,14 @@ namespace InventorySystem
 
         public void AddItem(Item item)
         {
+            itemUI.isEquipped = true;
             itemUI.UpdateInfo(item);
         }
         public void RemoveItem()
         {
-            itemUI.OnLetGo();
+            itemUI.isEquipped = false;
+            itemUI.itemInfo =null;
+            itemUI.OnDragDone();
         }
 
         public void OnObjectHoveringOver(GameObject selectedObject)

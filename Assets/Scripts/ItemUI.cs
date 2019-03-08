@@ -21,64 +21,94 @@ namespace InventorySystem
         [SerializeField]
         Color defaultColor;
         
-        Inventory inventory;
+        ScrollRect scrollView;
         public Item itemInfo;
+        public bool isEquipped=false;
 
         public void OnCancelDrag()
         {
+            if(scrollView!=null)
+            scrollView.enabled = true;
             ShowItem();
         } 
 
-        public void OnDeselected()
+        public void Deselect()
         {
-            itemBackground.color=defaultColor;
+            //Debug.Log(itemInfo.item_name+" deselecting.");
+            itemBackground.color=GetClassColor(itemInfo.item_class);
         }
 
-        public void OnDragged()
+        public void OnDragDone()
         {
-
+            if(scrollView!=null)
+            scrollView.enabled = true;
+            //Deselect();
+            //HideItem();
         }
 
-        public void OnLetGo()
+        public void Select()
         {
-            gameObject.SetActive(false);
-            itemInfo = null;
-        }
-
-        public void OnSelected()
-        {
+            //Debug.Log(itemInfo.item_name+" Selected.");
             itemBackground.color=selectedColor;
-            itemSelectedEvents.Select(itemInfo);
+            itemSelectedEvents.Raise(itemInfo);
         }
+
+
 
         public Sprite OnStartDrag()
         {
             HideItem();
+            if(scrollView!=null)
+            scrollView.enabled = false;
             return itemImage.sprite;
         }
 
-        void HideItem()
+        public void HideItem()
         {
+            Debug.Log(itemInfo.item_name+" Hiding.");
             transform.localScale = Vector3.zero;
+            //itemInfo = null;
+            isEquipped = false;
+            gameObject.SetActive(false);
         }
-        void ShowItem()
+        public void ShowItem()
         {
+            gameObject.SetActive(true);
             transform.localScale = Vector3.one;
         }
 
-        public void Initialize(Item item, Inventory inventory)
+        public void Initialize(Item item, ScrollRect scrollView)
         {
-            this.inventory = inventory;
+            this.scrollView = scrollView;
             UpdateInfo(item);
         }
 
         public void UpdateInfo(Item item)
         {
-            gameObject.SetActive(true);
             itemInfo = item;
             itemImage.sprite = itemInfo.icon;
             itemName.text = itemInfo.item_name;
+            itemBackground.color = GetClassColor(item.item_class);
             ShowItem();
+        }
+
+        Color GetClassColor(ItemClass itemClass)
+        {
+            switch (itemClass)
+            {
+                case ItemClass.Common:
+                    return Color.gray;
+                case ItemClass.Uncommon:
+                    return Color.green;
+                case ItemClass.Rare:
+                    return Color.blue;
+                case ItemClass.Legendary:
+                    return Color.yellow;
+                case ItemClass.Mythical:
+                    return Color.cyan;
+                default:
+                    return defaultColor;
+            }
         }
     }
 }

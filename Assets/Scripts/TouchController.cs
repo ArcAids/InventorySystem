@@ -25,12 +25,11 @@ namespace InventorySystem {
 
         bool dragged = false;
         bool isActive = false;
-        public GameObject selectedItem;
+        GameObject selectedItem;
 
         IDraggable draggableObject;
         IRecievable recievableObject;
         IRecievable objectDraggedFrom;
-        IDraggable lastSelectedObject;
 
         [SerializeField]
         GraphicRaycaster m_Raycaster;
@@ -67,17 +66,13 @@ namespace InventorySystem {
 
             if (Input.GetMouseButtonDown(0))
             {
-                lastSelectedObject = draggableObject;
-                IDraggable tempDraggable = DetectDraggables();
+                draggableObject= DetectDraggables();
                 objectDraggedFrom = DetectRecievables();
-                if (tempDraggable!= null)
+                if (draggableObject!= null)
                 {
-                    draggableObject = tempDraggable;
-                    if (lastSelectedObject != null)
-                        lastSelectedObject.OnDeselected();
-                    draggableObject.OnSelected();
-                    dragged = false;
+                    draggableObject.Select();
                 }
+                    dragged = false;
             }
             else if (Input.GetMouseButton(0))
             {
@@ -114,22 +109,29 @@ namespace InventorySystem {
                         return;
                     if (recievableObject != null && recievableObject!=objectDraggedFrom)         //object is over something other than where it started from.
                     {
-                        IDraggable tempdraggable = recievableObject.OnObjectAdded(selectedItem);
-                        if (tempdraggable != null)
+                        GameObject tempSelectedObject=recievableObject.OnObjectAdded(selectedItem);
+                        if (tempSelectedObject != null)
                         {
-                            if(tempdraggable != draggableObject)
-                            { 
-                                draggableObject.OnLetGo();
-                                tempdraggable.OnSelected();
-                                draggableObject = tempdraggable;
-                                return;
+                            IDraggable tempdraggable = tempSelectedObject.GetComponent<IDraggable>();
+                            if (tempdraggable != null)
+                            {
+                                if (tempdraggable != draggableObject)
+                                {
+                                    draggableObject.OnDragDone();
+                                    //tempdraggable.Select();
+                                    selectedItem = tempSelectedObject;
+                                    draggableObject = tempdraggable;
+                                    return;
+                                }
                             }
-                            
+                            else
+                                draggableObject.OnCancelDrag();
                         }
-                        
+                        else
+                            draggableObject.OnCancelDrag();
                     }
-                     draggableObject.OnCancelDrag(); 
-                    
+                    else
+                    draggableObject.OnCancelDrag(); 
                     
                 }
             }
@@ -191,16 +193,15 @@ namespace InventorySystem {
 
     public interface IDraggable
     {
-        void OnSelected();
-        void OnDeselected();
-        void OnLetGo();
+        void Select();
+        void Deselect();
+        void OnDragDone();
         void OnCancelDrag();
         Sprite OnStartDrag();
-        void OnDragged();
     }
     public interface IRecievable
     {
-        IDraggable OnObjectAdded(GameObject selectedObject);
+        GameObject OnObjectAdded(GameObject selectedObject);
         void OnObjectHoveringOver(GameObject selectedObject);
     }
 }
