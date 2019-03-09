@@ -30,27 +30,29 @@ namespace InventorySystem
         [SerializeField]
         InventoryData equipments;
 
-        private void Awake()
+        EquippedGears previewEquipments;
+
+        private void OnEnable()
         {
-            overAllStats = new ItemData();
+            EquipmentsUpdated();
         }
+
 
         ItemData CalculateNewValues(Item item = null)
         {
             tempOverAllStats = new ItemData();
-            
-                AddStats(equipments.gears.headGear, tempOverAllStats);
-                AddStats(equipments.gears.bodyGear, tempOverAllStats);
-                AddStats(equipments.gears.LegsGear, tempOverAllStats);
-                AddStats(equipments.gears.weapon1Gear, tempOverAllStats);
-                AddStats(equipments.gears.weapon2Gear, tempOverAllStats);
+            GetCurrentValues(tempOverAllStats);
             if (item!=null)
             {
                 Item itemAlreadyEquipped = null;
                 switch (item.slot)
                 {
                     case ItemSlot.Weapon:
-                        itemAlreadyEquipped = equipments.gears.weapon1Gear;
+                        if(equipments.gears.weapon2Gear!=null && equipments.gears.weapon2Gear.item_name == item.item_name)
+                            itemAlreadyEquipped = equipments.gears.weapon2Gear;
+                        else
+                            itemAlreadyEquipped = equipments.gears.weapon1Gear;
+
                         break;
                     case ItemSlot.Head:
                         itemAlreadyEquipped= equipments.gears.headGear;
@@ -64,13 +66,15 @@ namespace InventorySystem
                     default:
                         break;
                 }
+
                 SubstractStatsForItem(itemAlreadyEquipped, tempOverAllStats);
-                if(itemAlreadyEquipped!=null && item.item_name!=itemAlreadyEquipped.item_name)
+                if(itemAlreadyEquipped==null || (itemAlreadyEquipped!=null && item.item_name!=itemAlreadyEquipped.item_name))
                     AddStats(item, tempOverAllStats);
             }
             CalculateAdditionalStats(tempOverAllStats);
             return tempOverAllStats;
         }
+
 
         void CalculateAdditionalStats(ItemData data)
         {
@@ -78,6 +82,15 @@ namespace InventorySystem
             data.dodgeChance = data.agility * 0.2f;
             data.HP = data.strength * 12;
             data.mana= data.intel * 14;
+        }
+
+        void GetCurrentValues(ItemData stats)
+        {
+            AddStats(equipments.gears.headGear, stats);
+            AddStats(equipments.gears.bodyGear, stats);
+            AddStats(equipments.gears.LegsGear, stats);
+            AddStats(equipments.gears.weapon1Gear, stats);
+            AddStats(equipments.gears.weapon2Gear, stats);
         }
 
         void AddStats(Item equippedItem, ItemData stats)
@@ -103,21 +116,10 @@ namespace InventorySystem
             }
         }
 
-        //public void EquipmentsUpdated(EquippedGears gears)
-        //{
-        //    this.gears = gears;
-        //    UpdateValues(CalculateNewValues());
-        //}
-
-        public void ItemEquipped(ItemUI item)
+        public void EquipmentsUpdated()
         {
-            AddStats(item.itemInfo,overAllStats);
-            CalculateAdditionalStats(overAllStats);
-            UpdateUIValues();
-        }
-        public void ItemDequipped(ItemUI item)
-        {
-            SubstractStatsForItem(item.itemInfo,overAllStats);
+            overAllStats = new ItemData();
+            GetCurrentValues(overAllStats);
             CalculateAdditionalStats(overAllStats);
             UpdateUIValues();
         }
@@ -163,15 +165,45 @@ namespace InventorySystem
 
         public void UpdateUIValues()
         {
-            damageText.text = overAllStats.damage + "";
-            defenceText.text = overAllStats.defence + "";
-            AGIText.text = overAllStats.agility + "";
-            INTText.text = overAllStats.intel + "";
-            STRText.text = overAllStats.strength + "";
-            critText.text = overAllStats.critical + "";
-            manaText.text = overAllStats.mana + "";
-            HPText.text = overAllStats.HP + "";
-            dodgeText.text = overAllStats.dodgeChance + "";
+            SetFinalStatString(damageText, overAllStats.damage);
+            SetFinalStatString(defenceText, overAllStats.defence);
+            SetFinalStatString(AGIText, overAllStats.agility);
+            SetFinalStatString(INTText, overAllStats.intel);
+            SetFinalStatString(STRText, overAllStats.strength);
+            SetFinalStatString(critText, overAllStats.critical);
+            SetFinalStatString(manaText, overAllStats.mana);
+            SetFinalStatString(HPText, overAllStats.HP);
+            SetFinalStatString(dodgeText, overAllStats.dodgeChance);
+        }
+
+        void SetFinalStatString(TMP_Text statSlot,float currentValue)
+        {
+            string show = currentValue + " ";
+            statSlot.color = Color.white;
+            statSlot.text = show;
+        }
+
+
+
+        public void ItemEquipped(ItemUI item)
+        {
+            //if (item == null)
+            //    return;
+            //AddStats(item.itemInfo,overAllStats);
+            //CalculateAdditionalStats(overAllStats);
+            //UpdateUIValues();
+        }
+        public void ItemDequipped(ItemUI item)
+        {
+            overAllStats = new ItemData();
+            GetCurrentValues(overAllStats);
+            CalculateAdditionalStats(overAllStats);
+            UpdateUIValues();
+            //if (item == null)
+            //    return;
+            //SubstractStatsForItem(item.itemInfo,overAllStats);
+            //CalculateAdditionalStats(overAllStats);
+            //UpdateUIValues();
         }
     }
 }

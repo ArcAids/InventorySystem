@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +35,7 @@ namespace InventorySystem
         public void Deselect()
         {
             //Debug.Log(itemInfo.item_name+" deselecting.");
-            itemBackground.color=GetClassColor(itemInfo.item_class);
+            itemBackground.color=Inventory.GetClassColor(itemInfo.item_class);
         }
 
         public void OnDragDone()
@@ -65,12 +65,17 @@ namespace InventorySystem
 
         public void HideItem()
         {
-            Debug.Log(itemInfo.item_name+" Hiding.");
             transform.localScale = Vector3.zero;
             //itemInfo = null;
             isEquipped = false;
+        }
+
+        public void RemoveItem()
+        {
+            HideItem();
             gameObject.SetActive(false);
         }
+
         public void ShowItem()
         {
             gameObject.SetActive(true);
@@ -88,27 +93,17 @@ namespace InventorySystem
             itemInfo = item;
             itemImage.sprite = itemInfo.icon;
             itemName.text = itemInfo.item_name;
-            itemBackground.color = GetClassColor(item.item_class);
+            itemBackground.color = Inventory.GetClassColor(item.item_class);
             ShowItem();
         }
-
-        Color GetClassColor(ItemClass itemClass)
+        public int CompareTo(ItemUI other)
         {
-            switch (itemClass)
-            {
-                case ItemClass.Common:
-                    return Color.gray;
-                case ItemClass.Uncommon:
-                    return Color.green;
-                case ItemClass.Rare:
-                    return Color.blue;
-                case ItemClass.Legendary:
-                    return Color.yellow;
-                case ItemClass.Mythical:
-                    return Color.cyan;
-                default:
-                    return defaultColor;
-            }
+            return 0;
+        }
+
+        public int CompareTo(int other)
+        {
+            throw new NotImplementedException();
         }
     }
 }

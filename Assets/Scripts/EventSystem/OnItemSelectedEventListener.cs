@@ -19,7 +19,6 @@ public class OnItemSelectedEventListener : MonoBehaviour
     [ContextMenu("Raise Events")]
     public void OnEventRaised(Item itemSelected)
     {
-
         if (response.GetPersistentEventCount() >= 1)
         {
             response.Invoke(itemSelected);

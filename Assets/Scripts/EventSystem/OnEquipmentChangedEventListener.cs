@@ -6,9 +6,9 @@ namespace InventorySystem
     public class OnEquipmentChangedEventListener : MonoBehaviour
     {
         public InventoryData gameEvent;
-        public ResponseWithItemData responseForStats;
+        public UnityEvent responseUpdated;
         public ResponseWithItemUI responseEquip;
-        public ResponseWithItemUI responseDequip;
+        public ResponseWithItemData responseDequip;
 
         private void OnEnable()
         {
@@ -21,12 +21,12 @@ namespace InventorySystem
         }
 
         [ContextMenu("Raise Events")]
-        public void OnEventRaised(EquippedGears itemUpdated)
+        public void OnEventRaised()
         {
 
-            if (responseForStats.GetPersistentEventCount() >= 1)
+            if (responseUpdated.GetPersistentEventCount() >= 1)
             {
-                responseForStats.Invoke(itemUpdated);
+                responseUpdated.Invoke();
             }
         }
         [ContextMenu("Raise Events")]
@@ -38,8 +38,9 @@ namespace InventorySystem
                 responseEquip.Invoke(itemUpdated);
             }
         }
+
         [ContextMenu("Raise Events")]
-        public void OnItemDequipRaised(ItemUI itemUpdated)
+        public void OnItemDequipRaised(Item itemUpdated)
         {
 
             if (responseDequip.GetPersistentEventCount() >= 1)
@@ -50,7 +51,7 @@ namespace InventorySystem
     }
 
     [System.Serializable]
-    public class ResponseWithItemData : UnityEvent<EquippedGears>
+    public class ResponseWithItemData : UnityEvent<Item>
     {
     }
     [System.Serializable]

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemData 1
   m_EditorClassIdentifier: 
   items:
-  - icon: {fileID: 0}
+  - icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Frost Scepter
     description: Placeholder description
     item_class: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
     strength: 5
     agility: 11
     intel: 19
-  - icon: {fileID: 0}
+  - icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Leather Boots
     description: Placeholder description
     item_class: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     strength: 1
     agility: 11
     intel: 0
-  - icon: {fileID: 0}
+  - icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Shadow Greaves
     description: Placeholder description
     item_class: 2
@@ -43,7 +43,7 @@ MonoBehaviour:
     strength: 6
     agility: 35
     intel: 3
-  - icon: {fileID: 0}
+  - icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Dragonscale Helmet
     description: Placeholder description
     item_class: 3
@@ -63,7 +63,7 @@ MonoBehaviour:
     strength: 13
     agility: 38
     intel: 23
-  - icon: {fileID: 0}
+  - icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Buckler
     description: Placeholder description
     item_class: 0

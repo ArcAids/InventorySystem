@@ -7,7 +7,7 @@ using TMPro;
 
 namespace InventorySystem
 { 
-    public class ItemHolder : MonoBehaviour, IRecievable
+    public class ItemHolder : EquipmentManager, IRecievable
     {
         [SerializeField]
         ItemSlot holds;
@@ -26,7 +26,7 @@ namespace InventorySystem
             {
                 if (selectedItem.itemInfo.slot == holds)
                 {
-                    player.EquipItem(selectedItem.itemInfo,isWeapon1Slot);
+                    EquipOrDequipItem(selectedItem.itemInfo,isWeapon1Slot);
                     return itemUI.gameObject;
                 }
             }

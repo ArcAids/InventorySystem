@@ -20,6 +20,7 @@ namespace InventorySystem
             EquipItem(equippedItemsData.gears.headGear,true);
             EquipItem(equippedItemsData.gears.LegsGear,true);
         }
+
         public void EquipItem(Item item, bool isWeaponSlot1)
         {
             if (item == null || item.item_name == "")
@@ -72,7 +73,7 @@ namespace InventorySystem
                             break;
                     }
                     EquipSlots[slotIndex].AddItem(item);
-                    equippedItemsData.EquipmentsUpdated(itemEquipped);
+                    equippedItemsData.EquipmentEquiped(itemEquipped);
                 }
             }
             else
@@ -80,7 +81,7 @@ namespace InventorySystem
                     UnEquipItem(slotIndex);
             }
 
-           // equippedItemsData.EquipmentsUpdated();
+           equippedItemsData.EquipmentsUpdated();
         }
 
         public void UnEquipItem(int slotIndex)
@@ -111,11 +112,16 @@ namespace InventorySystem
             EquipSlots[slotIndex].RemoveItem();
         }
 
+        public void EquipItem(ItemUI item)
+        {
+
+        }
+
         int IsWeaponAlreadyEquipped(string weaponName)
         {
-            if (equippedItemsData.gears.weapon1Gear!=null && equippedItemsData.gears.weapon1Gear.item_name == weaponName)
+            if (equippedItemsData.gears.weapon1Gear==null || equippedItemsData.gears.weapon1Gear.item_name == weaponName)
                 return 4;
-            if (equippedItemsData.gears.weapon2Gear!=null  && equippedItemsData.gears.weapon2Gear.item_name == weaponName)
+            if (equippedItemsData.gears.weapon2Gear==null  || equippedItemsData.gears.weapon2Gear.item_name == weaponName)
                 return 0;
             return -1;
         }

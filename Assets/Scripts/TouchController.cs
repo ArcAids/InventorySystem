@@ -39,12 +39,13 @@ namespace InventorySystem {
 
         void Start()
         {
-            //Fetch the Raycaster from the GameObject (the Canvas)
             if (m_Raycaster == null)
                 m_Raycaster = GetComponentInParent<GraphicRaycaster>();
-            //Fetch the Event System from the Scene
             if (m_EventSystem == null)
                 m_EventSystem = FindObjectOfType<EventSystem>();
+            if (cam == null)
+                cam = Camera.main;
+
             draggedItemPreviewImage.gameObject.SetActive(false);
         }
 
@@ -92,10 +93,13 @@ namespace InventorySystem {
                     else
                     if (Vector2.Distance(mouseDownPosition, mousePosition) > dragThreshold)  // TODO: Optimize.
                     {
-                        dragged = true;
-                        draggedItemPreviewImage.sprite=draggableObject.OnStartDrag();
-                        draggedItemPreviewImage.transform.position = mousePosition;
-                        draggedItemPreviewImage.gameObject.SetActive(true);
+                        if (draggableMask == (draggableMask | (1 << selectedItem.gameObject.layer)))
+                        {
+                            dragged = true;
+                            draggedItemPreviewImage.sprite = draggableObject.OnStartDrag();
+                            draggedItemPreviewImage.transform.position = mousePosition;
+                            draggedItemPreviewImage.gameObject.SetActive(true); 
+                        }
                     }
                 }
             }
@@ -155,14 +159,15 @@ namespace InventorySystem {
             //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results)
             {
-                draggableObject= result.gameObject.GetComponent<IDraggable>();
+                
+                draggableObject = result.gameObject.GetComponent<IDraggable>();
                 if (draggableObject != null)
                 {
                     mouseDownPosition = Input.mousePosition;
                     selectedItem = result.gameObject;
                     return draggableObject;
                 }
-                Debug.Log("Hit " + result.gameObject.name);
+                break;
             }
             return null;
 
@@ -178,10 +183,13 @@ namespace InventorySystem {
 
             foreach (RaycastResult result in results)
             {
-                recievableObject = result.gameObject.GetComponent<IRecievable>();
-                if (recievableObject != null)
+                if (recievableMask == (recievableMask | (1 << result.gameObject.layer)))
                 {
-                    return recievableObject;
+                    recievableObject = result.gameObject.GetComponent<IRecievable>();
+                    if (recievableObject != null)
+                    {
+                        return recievableObject;
+                    }
                 }
             }
             return null;

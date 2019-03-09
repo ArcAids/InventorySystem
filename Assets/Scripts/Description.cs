@@ -6,10 +6,8 @@ using TMPro;
 
 namespace InventorySystem
 {
-    public class Description : MonoBehaviour
+    public class Description : EquipmentManager
     {
-        [SerializeField]
-        PlayerEquipmentsUI playerEquipments;
         [SerializeField]
         TMP_Text itemName;
         [SerializeField]
@@ -39,7 +37,7 @@ namespace InventorySystem
             itemDescription.text = item.description;
             itemIcon.sprite = item.icon;
             ItemClassName.text = System.Enum.GetName(typeof(ItemClass), item.item_class);
-            //itemBackground.color =;
+            itemBackground.color = Inventory.GetClassColor(item.item_class);
             damage.text = item.damage + "";
             defence.text = item.defence + "";
             defence.text = item.defence + "";
@@ -50,10 +48,8 @@ namespace InventorySystem
     
         public void EquipDequip()
         {
-            if (item!=null)
-            {
-                playerEquipments.EquipItem(item, true);
-            }
+            if (item != null)
+                EquipOrDequipItem(item);
         }
     }
 }
