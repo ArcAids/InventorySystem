@@ -34,7 +34,6 @@ namespace InventorySystem
 
         public void Deselect()
         {
-            //Debug.Log(itemInfo.item_name+" deselecting.");
             itemBackground.color=Inventory.GetClassColor(itemInfo.item_class);
         }
 
@@ -42,15 +41,12 @@ namespace InventorySystem
         {
             if(scrollView!=null)
             scrollView.enabled = true;
-            //Deselect();
-            //HideItem();
         }
 
         public void Select()
         {
-            //Debug.Log(itemInfo.item_name+" Selected.");
             itemBackground.color=selectedColor;
-            itemSelectedEvents.Raise(itemInfo);
+            itemSelectedEvents.Raise(this);
         }
 
 
@@ -66,7 +62,6 @@ namespace InventorySystem
         public void HideItem()
         {
             transform.localScale = Vector3.zero;
-            //itemInfo = null;
             isEquipped = false;
         }
 

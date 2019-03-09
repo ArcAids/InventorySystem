@@ -19,30 +19,35 @@ namespace InventorySystem
         public ItemUI itemUI;
 
 
-        public GameObject OnObjectAdded(GameObject selectedObject)
+        public void OnObjectAdded(GameObject selectedObject)
         {
             ItemUI selectedItem=selectedObject.GetComponent<ItemUI>();
             if (selectedItem != null)
             {
                 if (selectedItem.itemInfo.slot == holds)
                 {
-                    EquipOrDequipItem(selectedItem.itemInfo,isWeapon1Slot);
-                    return itemUI.gameObject;
+                    EquipOrDequipItem(selectedItem.itemInfo,CalculateSlotIndex(holds,isWeapon1Slot));
                 }
             }
-            return null;
+        }
+
+        int CalculateSlotIndex(ItemSlot slot, bool weapon1Slot)
+        {
+            if (slot == ItemSlot.Weapon)
+                return weapon1Slot ? 4 : 0;
+            else
+                return (int)slot;
         }
 
         public void AddItem(Item item)
         {
-            itemUI.isEquipped = true;
             itemUI.UpdateInfo(item);
+            itemUI.Select();
         }
         public void RemoveItem()
         {
-            itemUI.isEquipped = false;
             itemUI.itemInfo =null;
-            itemUI.OnDragDone();
+            itemUI.RemoveItem();
         }
 
         public void OnObjectHoveringOver(GameObject selectedObject)

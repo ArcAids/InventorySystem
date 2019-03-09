@@ -30,12 +30,24 @@ namespace InventorySystem
 
         public int IsWeaponAlreadyEquipped(string weaponName)
         {
-            if (gears.weapon1Gear != null && gears.weapon1Gear.item_name == weaponName)
-                return 4;
-            if (gears.weapon2Gear != null && gears.weapon2Gear.item_name == weaponName)
-                return 0;
-            if (gears.weapon2Gear == null)
-                return 0;
+            bool weapon1SlotEmpty = gears.weapon1Gear == null;
+            bool weapon2SlotEmpty = gears.weapon2Gear == null;
+            bool isWeaponEquippedAt1 = (!weapon1SlotEmpty && gears.weapon1Gear.item_name == weaponName);
+            bool isWeaponEquippedAt2 = (!weapon2SlotEmpty && gears.weapon2Gear.item_name == weaponName);
+            if (isWeaponEquippedAt1 || isWeaponEquippedAt2)
+            {
+                if (isWeaponEquippedAt1)
+                    return 4;
+                else
+                    return 0;
+            }
+            else if (weapon2SlotEmpty || weapon1SlotEmpty)
+            {
+                if (weapon2SlotEmpty)
+                    return 0;
+                else
+                    return 4;
+            }
             else
                 return 4;
         }
@@ -47,14 +59,14 @@ namespace InventorySystem
                 eventListeners[i].OnEventRaised();
             }
         }
-        public void EquipmentEquiped(ItemUI item)
+        public void EquipmentEquiped(ItemAndSlot item)
         {
             for (int i = eventListeners.Count - 1; i >= 0; i--)
             {
                 eventListeners[i].OnItemEquipRaised(item);
             }
         }
-        public void EquipmentDequiped(Item item)
+        public void EquipmentDequiped(ItemAndSlot item)
         {
             for (int i = eventListeners.Count - 1; i >= 0; i--)
             {

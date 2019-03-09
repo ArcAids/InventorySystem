@@ -7,7 +7,7 @@ namespace InventorySystem
     {
         public InventoryData gameEvent;
         public UnityEvent responseUpdated;
-        public ResponseWithItemUI responseEquip;
+        public ResponseWithItemData responseEquip;
         public ResponseWithItemData responseDequip;
 
         private void OnEnable()
@@ -29,10 +29,10 @@ namespace InventorySystem
                 responseUpdated.Invoke();
             }
         }
-        [ContextMenu("Raise Events")]
-        public void OnItemEquipRaised(ItemUI itemUpdated)
-        {
 
+        [ContextMenu("Raise Events")]
+        public void OnItemEquipRaised(ItemAndSlot itemUpdated)
+        {
             if (responseEquip.GetPersistentEventCount() >= 1)
             {
                 responseEquip.Invoke(itemUpdated);
@@ -40,7 +40,7 @@ namespace InventorySystem
         }
 
         [ContextMenu("Raise Events")]
-        public void OnItemDequipRaised(Item itemUpdated)
+        public void OnItemDequipRaised(ItemAndSlot itemUpdated)
         {
 
             if (responseDequip.GetPersistentEventCount() >= 1)
@@ -51,7 +51,7 @@ namespace InventorySystem
     }
 
     [System.Serializable]
-    public class ResponseWithItemData : UnityEvent<Item>
+    public class ResponseWithItemData : UnityEvent<ItemAndSlot>
     {
     }
     [System.Serializable]

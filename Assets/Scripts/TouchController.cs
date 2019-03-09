@@ -82,13 +82,12 @@ namespace InventorySystem {
                     mousePosition = Input.mousePosition;
                     if (dragged)
                     {
-                        //draggableObject.OnDragged();
                         draggedItemPreviewImage.transform.position = mousePosition;
-                        recievableObject = DetectRecievables();
-                        if (recievableObject != null)
-                        {
-                            recievableObject.OnObjectHoveringOver(selectedItem);
-                        }
+                        //recievableObject = DetectRecievables();
+                        //if (recievableObject != null)
+                        //{
+                        //    recievableObject.OnObjectHoveringOver(selectedItem);
+                        //}
                     }
                     else
                     if (Vector2.Distance(mouseDownPosition, mousePosition) > dragThreshold)  // TODO: Optimize.
@@ -113,26 +112,8 @@ namespace InventorySystem {
                         return;
                     if (recievableObject != null && recievableObject!=objectDraggedFrom)         //object is over something other than where it started from.
                     {
-                        GameObject tempSelectedObject=recievableObject.OnObjectAdded(selectedItem);
-                        if (tempSelectedObject != null)
-                        {
-                            IDraggable tempdraggable = tempSelectedObject.GetComponent<IDraggable>();
-                            if (tempdraggable != null)
-                            {
-                                if (tempdraggable != draggableObject)
-                                {
-                                    draggableObject.OnDragDone();
-                                    //tempdraggable.Select();
-                                    selectedItem = tempSelectedObject;
-                                    draggableObject = tempdraggable;
-                                    return;
-                                }
-                            }
-                            else
-                                draggableObject.OnCancelDrag();
-                        }
-                        else
-                            draggableObject.OnCancelDrag();
+                        recievableObject.OnObjectAdded(selectedItem);
+                        draggableObject.OnDragDone();
                     }
                     else
                     draggableObject.OnCancelDrag(); 
@@ -145,18 +126,12 @@ namespace InventorySystem {
         IDraggable DetectDraggables()
         {
 
-            //Set up the new Pointer Event
             m_PointerEventData = new PointerEventData(m_EventSystem);
-            //Set the Pointer Event Position to that of the mouse position
             m_PointerEventData.position = Input.mousePosition;
-
-            //Create a list of Raycast Results
             List<RaycastResult> results = new List<RaycastResult>();
 
-            //Raycast using the Graphics Raycaster and mouse click position
             m_Raycaster.Raycast(m_PointerEventData, results);
 
-            //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results)
             {
                 
@@ -172,7 +147,7 @@ namespace InventorySystem {
             return null;
 
         }
-    IRecievable DetectRecievables()
+        IRecievable DetectRecievables()
     {
             m_PointerEventData = new PointerEventData(m_EventSystem);
             m_PointerEventData.position = Input.mousePosition;
@@ -209,7 +184,7 @@ namespace InventorySystem {
     }
     public interface IRecievable
     {
-        GameObject OnObjectAdded(GameObject selectedObject);
+        void OnObjectAdded(GameObject selectedObject);
         void OnObjectHoveringOver(GameObject selectedObject);
     }
 }

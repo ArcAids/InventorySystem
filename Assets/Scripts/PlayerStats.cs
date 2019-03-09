@@ -124,11 +124,10 @@ namespace InventorySystem
             UpdateUIValues();
         }
 
-        public void OnSelectedItem(Item item)
+        public void OnSelectedItem(ItemUI item)
         {
-            PreviewInfo(CalculateNewValues(item));
+            PreviewInfo(CalculateNewValues(item.itemInfo));
         }
-
 
         public void PreviewInfo(ItemData item)
         {
@@ -182,28 +181,22 @@ namespace InventorySystem
             statSlot.color = Color.white;
             statSlot.text = show;
         }
-
-
-
-        public void ItemEquipped(ItemUI item)
+        
+        public void ItemEquipped(ItemAndSlot item)
         {
-            //if (item == null)
-            //    return;
-            //AddStats(item.itemInfo,overAllStats);
-            //CalculateAdditionalStats(overAllStats);
-            //UpdateUIValues();
-        }
-        public void ItemDequipped(ItemUI item)
-        {
-            overAllStats = new ItemData();
-            GetCurrentValues(overAllStats);
+            if (item == null)
+                return;
+            AddStats(item.item, overAllStats);
             CalculateAdditionalStats(overAllStats);
             UpdateUIValues();
-            //if (item == null)
-            //    return;
-            //SubstractStatsForItem(item.itemInfo,overAllStats);
-            //CalculateAdditionalStats(overAllStats);
-            //UpdateUIValues();
+        }
+        public void ItemDequipped(ItemAndSlot item)
+        {
+            if (item == null)
+                return;
+            SubstractStatsForItem(item.item, overAllStats);
+            CalculateAdditionalStats(overAllStats);
+            UpdateUIValues();
         }
     }
 }

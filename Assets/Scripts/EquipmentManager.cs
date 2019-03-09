@@ -8,68 +8,44 @@ namespace InventorySystem
     {
 
         [SerializeField]
-        InventoryData equipmentsData;
+        protected InventoryData equipmentsData;
+        ItemAndSlot equipmentAndLocation;
 
-        public void EquipOrDequipItem(Item item)
-        {
-            if (item == null || item.item_name == "")
-                return;
-            int slotIndex = (int)item.slot;
-            if (item.slot == ItemSlot.Weapon)
-            {
-                slotIndex = equipmentsDataIsWeaponAlreadyEquipped(item.item_name);
-            }
-            Item itemEquipped = equipmentsDataGetItemFromEquipmentsAt(slotIndex);
-            if (itemEquipped == null)
-                {
-                    EquipItem(item,slotIndex);          //equip at Empty Place
-                }
-            else
-            if (item.item_name != itemEquipped.item_name)      //is item already in the same slot?
-            {
-                if (itemEquipped!=null)
-                {
-                    Debug.Log("Dequipping:" + item.item_name);
-                    UnEquipItem(item,slotIndex);                    //remove Item before Adding new one
-                }
-                                                                        //Equip after Dequiping
-                EquipItem(item,slotIndex);
-            }
-            else
-            {
-                UnEquipItem(item,slotIndex);                 //Dequip
-            }
 
-            equipmentsData.EquipmentsUpdated();
-        }
-        public void EquipOrDequipItem(Item item, bool weaponHand)
+        protected void EquipOrDequipItem(Item item)
         {
-            if (item == null || item.item_name == "")
+            if (item == null || item.item_name == null)
                 return;
             int slotIndex = (int)item.slot;
             if (item.slot == ItemSlot.Weapon)
             {
                 slotIndex = equipmentsData.IsWeaponAlreadyEquipped(item.item_name);
             }
+            EquipOrDequipItem(item, slotIndex);
+        }
+
+        protected void EquipOrDequipItem(Item item, int slotIndex)
+        {
+            if (item == null || item.item_name == null)
+                return;
             Item itemEquipped = equipmentsData.GetItemFromEquipmentsAt(slotIndex);
-            if (itemEquipped == null)
-                {
-                    EquipItem(item,slotIndex);          //equip at Empty Place
-                }
+            if (itemEquipped == null || itemEquipped.item_name == "")
+            {
+                EquipItem(item, slotIndex);          //equip at Empty Place
+            }
             else
             if (item.item_name != itemEquipped.item_name)      //is item already in the same slot?
             {
-                if (itemEquipped!=null)
+                if (itemEquipped != null)
                 {
-                    Debug.Log("Dequipping:" + item.item_name);
-                    UnEquipItem(item,slotIndex);                    //remove Item before Adding new one
+                    UnEquipItem(itemEquipped, slotIndex);                    //remove Item before Adding new one
                 }
-                                                                        //Equip after Dequiping
-                EquipItem(item,slotIndex);
+                                                                            //Equip after Dequiping
+                EquipItem(item, slotIndex);
             }
             else
             {
-                UnEquipItem(item,slotIndex);                 //Dequip
+                UnEquipItem(itemEquipped, slotIndex);                 //Dequip
             }
 
             equipmentsData.EquipmentsUpdated();
@@ -101,9 +77,11 @@ namespace InventorySystem
                 default:
                     break;
             }
+            equipmentsData.EquipmentEquiped(new ItemAndSlot(item,slotIndex));
         }
-        void UnEquipItem(Item item,int slotIndex)
+        void UnEquipItem(Item item, int slotIndex)
         {
+            Debug.Log("Unequipping:" + item.item_name);
             switch (item.slot)
             {
                 case ItemSlot.Weapon:
@@ -126,10 +104,22 @@ namespace InventorySystem
                 default:
                     break;
             }
-            equipmentsData.EquipmentDequiped(item);
+            equipmentsData.EquipmentDequiped(new ItemAndSlot(item, slotIndex));
         }
 
-       
 
+
+    }
+
+    public class ItemAndSlot
+    {
+        public Item item;
+        public int index;
+
+        public ItemAndSlot(Item item, int index)
+        {
+            this.item = item;
+            this.index = index;
+        }
     }
 }

@@ -8,120 +8,41 @@ namespace InventorySystem
     public class PlayerEquipmentsUI : MonoBehaviour
     {
         [SerializeField]
-        InventoryData equippedItemsData;
+        InventoryData equipmentsData;
         [SerializeField]
         List<ItemHolder> EquipSlots;
 
-        private void Start()
+        private void OnEnable()
         {
-            EquipItem(equippedItemsData.gears.bodyGear,true);
-            EquipItem(equippedItemsData.gears.weapon1Gear, true);
-            EquipItem(equippedItemsData.gears.weapon2Gear, false);
-            EquipItem(equippedItemsData.gears.headGear,true);
-            EquipItem(equippedItemsData.gears.LegsGear,true);
+            EquipItem(new ItemAndSlot(equipmentsData.gears.bodyGear,2));
+            EquipItem(new ItemAndSlot(equipmentsData.gears.weapon1Gear, 4));
+            EquipItem(new ItemAndSlot(equipmentsData.gears.weapon2Gear, 0));
+            EquipItem(new ItemAndSlot(equipmentsData.gears.headGear,1));
+            EquipItem(new ItemAndSlot(equipmentsData.gears.LegsGear,3));
         }
 
-        public void EquipItem(Item item, bool isWeaponSlot1)
+        public void EquipItem(ItemAndSlot item)
         {
-            if (item == null || item.item_name == "")
+            if (item == null || item.item==null || item.item.item_name == "")
                 return;
-            int slotIndex = (int)item.slot;
-            if (item.slot==ItemSlot.Weapon)
-            {
-                int weaponSlot = IsWeaponAlreadyEquipped(item.item_name);
-                if (weaponSlot < 0)
-                {
-                    if (isWeaponSlot1)
-                        slotIndex = 4;
-                }
-                else
-                    slotIndex = weaponSlot;
-            }
-            ItemUI itemEquipped = EquipSlots[slotIndex].itemUI;
-            if (item != itemEquipped.itemInfo)      //is item already in the same slot?
-            {
-                if (itemEquipped.isEquipped)
-                {
-                    Debug.Log("Dequipping:"+item.item_name);
-                    UnEquipItem(slotIndex);
-                    //remove Item before Adding new one
 
-                }
-                if(!itemEquipped.isEquipped)
-                {
-                    Debug.Log("Equipping:"+item.item_name);
-                    switch (item.slot)
-                    {
-                        case ItemSlot.Weapon:
-                            {
-                                if(isWeaponSlot1)
-                                    equippedItemsData.gears.weapon1Gear = item;
-                                else
-                                    equippedItemsData.gears.weapon2Gear = item;
-                            }
-                            break;
-                        case ItemSlot.Head:
-                            equippedItemsData.gears.headGear = item;
-                            break;
-                        case ItemSlot.Body:
-                            equippedItemsData.gears.bodyGear = item;
-                            break;
-                        case ItemSlot.Feet:
-                            equippedItemsData.gears.LegsGear = item;
-                            break;
-                        default:
-                            break;
-                    }
-                    EquipSlots[slotIndex].AddItem(item);
-                    equippedItemsData.EquipmentEquiped(itemEquipped);
-                }
-            }
-            else
-            {
-                    UnEquipItem(slotIndex);
-            }
-
-           equippedItemsData.EquipmentsUpdated();
+            EquipSlots[item.index].AddItem(item.item);
         }
 
-        public void UnEquipItem(int slotIndex)
+        public void DequipItem(ItemAndSlot item)
         {
-            switch (EquipSlots[slotIndex].itemUI.itemInfo.slot)
-            {
-                case ItemSlot.Weapon:
-                    {
-                        if (slotIndex==0)
-                            equippedItemsData.gears.weapon2Gear = null;
-                        else
-                            equippedItemsData.gears.weapon1Gear = null;
-                    }
-                    break;
-                case ItemSlot.Head:
-                    equippedItemsData.gears.headGear = null;
-                    break;
-                case ItemSlot.Body:
-                    equippedItemsData.gears.bodyGear = null;
-                    break;
-                case ItemSlot.Feet:
-                    equippedItemsData.gears.LegsGear = null;
-                    break;
-                default:
-                    break;
-            }
-            equippedItemsData.EquipmentDequiped(EquipSlots[slotIndex].itemUI);
-            EquipSlots[slotIndex].RemoveItem();
+            if (item == null || item.item == null || item.item.item_name == "")
+                return;
+
+            EquipSlots[item.index].RemoveItem();
         }
 
-        public void EquipItem(ItemUI item)
-        {
-
-        }
 
         int IsWeaponAlreadyEquipped(string weaponName)
         {
-            if (equippedItemsData.gears.weapon1Gear==null || equippedItemsData.gears.weapon1Gear.item_name == weaponName)
+            if (equipmentsData.gears.weapon1Gear==null || equipmentsData.gears.weapon1Gear.item_name == weaponName)
                 return 4;
-            if (equippedItemsData.gears.weapon2Gear==null  || equippedItemsData.gears.weapon2Gear.item_name == weaponName)
+            if (equipmentsData.gears.weapon2Gear==null  || equipmentsData.gears.weapon2Gear.item_name == weaponName)
                 return 0;
             return -1;
         }
@@ -141,25 +62,24 @@ namespace InventorySystem
             {
                 case ItemSlot.Weapon:
                     {
-                        if (itemName == equippedItemsData.gears.weapon2Gear.item_name)
-                            equippedItemsData.gears.weapon2Gear = null;
+                        if (itemName == equipmentsData.gears.weapon2Gear.item_name)
+                            equipmentsData.gears.weapon2Gear = null;
                         else
-                            equippedItemsData.gears.weapon1Gear = null;
+                            equipmentsData.gears.weapon1Gear = null;
                     }
                     break;
                 case ItemSlot.Head:
-                    equippedItemsData.gears.headGear = null;
+                    equipmentsData.gears.headGear = null;
                     break;
                 case ItemSlot.Body:
-                    equippedItemsData.gears.bodyGear = null;
+                    equipmentsData.gears.bodyGear = null;
                     break;
                 case ItemSlot.Feet:
-                    equippedItemsData.gears.LegsGear = null;
+                    equipmentsData.gears.LegsGear = null;
                     break;
                 default:
                     break;
             }
-            equippedItemsData.EquipmentDequiped(itemToUnEquip.itemUI);
             itemToUnEquip.RemoveItem();
         }
 

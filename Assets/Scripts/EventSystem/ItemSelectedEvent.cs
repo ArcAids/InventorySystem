@@ -8,8 +8,15 @@ public class ItemSelectedEvent : ScriptableObject
 {
     private List<OnItemSelectedEventListener> eventListeners = new List<OnItemSelectedEventListener>();
 
-    public void Raise(Item item)
+    ItemUI selectedItem;
+
+    public void Raise(ItemUI item)
     {
+        if (selectedItem != null && item!=selectedItem)
+        {
+            selectedItem.Deselect();
+        }
+        selectedItem = item;
         for (int i = eventListeners.Count - 1; i >= 0; i--)
         {
             eventListeners[i].OnEventRaised(item);

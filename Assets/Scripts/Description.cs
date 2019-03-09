@@ -30,9 +30,13 @@ namespace InventorySystem
         TMP_Text INT;
         Item item;
 
-        public void UpdateInfo(Item item)
+        [SerializeField]
+        ItemSlot slot;
+
+        public void UpdateInfo(ItemUI itemUI)
         {
-            this.item = item;
+            slot = itemUI.itemInfo.slot;
+            item = itemUI.itemInfo;
             itemName.text = item.item_name;
             itemDescription.text = item.description;
             itemIcon.sprite = item.icon;

@@ -200,18 +200,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &744860050 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1965335841831614414, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-    type: 3}
-  m_PrefabInstance: {fileID: 2071357864}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a41f0437dfa6ecc40b73a72bd8a89e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &744860053 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1965335841831614419, guid: 6b53d01f810bb644ba8ab9b8d073affe,
@@ -470,11 +458,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2225415222860944484, guid: 0c060874a53fcc340b5b5cab7961de97,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.000042952306
-      objectReference: {fileID: 0}
     - target: {fileID: 2225415222984275590, guid: 0c060874a53fcc340b5b5cab7961de97,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -484,15 +467,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2225415222984275590, guid: 0c060874a53fcc340b5b5cab7961de97,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 862420634, guid: 0c060874a53fcc340b5b5cab7961de97, type: 3}
-      propertyPath: responseEquip.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EquipItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c060874a53fcc340b5b5cab7961de97, type: 3}
@@ -1894,11 +1868,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2749126082820654996, guid: 83185f0a40657c74f9361548d86046eb,
-        type: 3}
-      propertyPath: playerEquipments
-      value: 
-      objectReference: {fileID: 744860050}
     - target: {fileID: 424837893180772720, guid: 83185f0a40657c74f9361548d86046eb,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -1927,11 +1896,6 @@ PrefabInstance:
     - target: {fileID: 2749126081401460603, guid: 83185f0a40657c74f9361548d86046eb,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2749126081401460603, guid: 83185f0a40657c74f9361548d86046eb,
-        type: 3}
-      propertyPath: m_fontStyle
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2749126082889646731, guid: 83185f0a40657c74f9361548d86046eb,

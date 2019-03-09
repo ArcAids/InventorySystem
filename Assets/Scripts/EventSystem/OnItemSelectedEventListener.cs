@@ -1,33 +1,35 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-
-public class OnItemSelectedEventListener : MonoBehaviour
+namespace InventorySystem
 {
-    public ItemSelectedEvent gameEvent;
-    public ResponseWithItem response;
-
-    private void OnEnable()
+    public class OnItemSelectedEventListener : MonoBehaviour
     {
-        gameEvent.Register(this);
+        public ItemSelectedEvent gameEvent;
+        public ResponseWithItem response;
 
-    }
-    private void OnDisable()
-    {
-        gameEvent.DeRegister(this);
-    }
-
-    [ContextMenu("Raise Events")]
-    public void OnEventRaised(Item itemSelected)
-    {
-        if (response.GetPersistentEventCount() >= 1)
+        private void OnEnable()
         {
-            response.Invoke(itemSelected);
+            gameEvent.Register(this);
+
+        }
+        private void OnDisable()
+        {
+            gameEvent.DeRegister(this);
+        }
+
+        [ContextMenu("Raise Events")]
+        public void OnEventRaised(ItemUI itemSelected)
+        {
+            if (response.GetPersistentEventCount() >= 1)
+            {
+                response.Invoke(itemSelected);
+            }
         }
     }
-}
 
-[System.Serializable]
-public class ResponseWithItem : UnityEvent<Item>
-{
-}
+    [System.Serializable]
+    public class ResponseWithItem : UnityEvent<ItemUI>
+    {
+    }
 
+}

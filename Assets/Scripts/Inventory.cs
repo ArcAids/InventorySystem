@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace InventorySystem
 {
-    public class Inventory : MonoBehaviour
+    public class Inventory : EquipmentManager,IRecievable
     {
         public enum SortBy
         {
@@ -27,7 +27,6 @@ namespace InventorySystem
         SortBy sortBy;
 
         ItemUI selectedItem=null;
-        List<ItemUI> hiddenItems = new List<ItemUI>();
 
         Dictionary<string, ItemUI> inventoryItems = new Dictionary<string, ItemUI>();
 
@@ -54,38 +53,28 @@ namespace InventorySystem
             Sort();
         }
 
-        public void SelectItem(Item item)
+        public void EquipItem(ItemAndSlot item)
         {
-            if (inventoryItems.ContainsKey(item.item_name))
+            if (inventoryItems.ContainsKey(item.item.item_name))
             {
-                if(selectedItem!=null && selectedItem.itemInfo!=item)
-                    selectedItem.Deselect();
-                selectedItem = inventoryItems[item.item_name];
+                Debug.Log("item equiping:"+item.item.item_name);
+                inventoryItems[item.item.item_name].RemoveItem();
             }
         }
 
-        public void EquipItem(ItemUI item)
+        public void DequipItem(ItemAndSlot item)
         {
-            if (inventoryItems.ContainsKey(item.itemInfo.item_name))
+            if (item.item == null)
             {
-                Debug.Log("item equiping:"+item.itemInfo.item_name);
-                inventoryItems[item.itemInfo.item_name].RemoveItem();
-                hiddenItems.Add(inventoryItems[item.itemInfo.item_name]);
-                inventoryItems[item.itemInfo.item_name] = item;
-                item.Select();
+                Debug.Log("item null", gameObject);
+                return;
             }
-        }
-
-        public void DequipItem(Item item)
-        {
-            if (inventoryItems.ContainsKey(item.item_name))
+                
+            if (inventoryItems.ContainsKey(item.item.item_name))
             {
-                Debug.Log("item dequiping:"+item.item_name);
-                inventoryItems[item.item_name].RemoveItem();
-                inventoryItems[item.item_name] = hiddenItems[0];
-                hiddenItems.RemoveAt(0);
-                inventoryItems[item.item_name].UpdateInfo(item);
-                inventoryItems[item.item_name].Select();
+                Debug.Log("item dequiping:"+item.item.item_name);
+                inventoryItems[item.item.item_name].UpdateInfo(item.item);
+                inventoryItems[item.item.item_name].Select();
             }
             Sort();
         }
@@ -112,10 +101,44 @@ namespace InventorySystem
             int i = 0;
             foreach (var item in itemsList)
             {
-                if (!item.isEquipped)
-                { item.transform.SetSiblingIndex(i);
+                if (!isItemEquipped(item.itemInfo))
+                {
+                    item.transform.SetSiblingIndex(i);
                     i++;
                 }
+                else
+                    item.RemoveItem();
+            }
+        }
+
+        bool isItemEquipped(Item item)
+        {
+            switch (item.slot)
+            {
+                case ItemSlot.Weapon:
+                    if ((equipmentsData.gears.weapon1Gear!=null && item.item_name == equipmentsData.gears.weapon1Gear.item_name) 
+                        ||
+                        (equipmentsData.gears.weapon2Gear!=null && item.item_name == equipmentsData.gears.weapon2Gear.item_name))
+                        return true;
+                    else
+                        return false;
+                case ItemSlot.Head:
+                    if (equipmentsData.gears.headGear!=null && item.item_name == equipmentsData.gears.headGear.item_name)
+                        return true;
+                    else
+                        return false;
+                case ItemSlot.Body:
+                    if (equipmentsData.gears.bodyGear != null && item.item_name == equipmentsData.gears.bodyGear.item_name)
+                        return true;
+                    else
+                        return false;
+                case ItemSlot.Feet:
+                    if (equipmentsData.gears.LegsGear != null && item.item_name == equipmentsData.gears.LegsGear.item_name)
+                        return true;
+                    else
+                        return false;
+                default:
+                    return false;
             }
         }
 
@@ -136,6 +159,20 @@ namespace InventorySystem
                 default:
                     return Color.white;
             }
+        }
+
+        public void OnObjectAdded(GameObject selectedObject)
+        {
+            ItemUI selectedItem = selectedObject.GetComponent<ItemUI>();
+            if (selectedItem != null)
+            {
+                EquipOrDequipItem(selectedItem.itemInfo);
+            }
+        }
+
+        public void OnObjectHoveringOver(GameObject selectedObject)
+        {
+            throw new NotImplementedException();
         }
 
         //public void RefreshList(EquippedGears gearsEquipped)

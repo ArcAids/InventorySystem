@@ -99,7 +99,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 15
   m_fontSizeMax: 40
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 513
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da2cbce2d991894194f2d2baeb9c4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerEquipments: {fileID: 0}
+  equipmentsData: {fileID: 11400000, guid: a16df7a412de2cb47ae24f0b05191ff5, type: 2}
   itemName: {fileID: 2749126081401460603}
   itemDescription: {fileID: 2749126082889646731}
   itemIcon: {fileID: 2749126082346791509}
@@ -711,6 +711,7 @@ MonoBehaviour:
   STR: {fileID: 3892803842317814931}
   AGI: {fileID: 3892803842908746440}
   INT: {fileID: 3892803842261160829}
+  slot: 0
 --- !u!114 &2749126082820654997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,8 +739,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: ResponseWithItem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: InventorySystem.ResponseWithItem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &2749126082889646729
 GameObject:
   m_ObjectHideFlags: 0
