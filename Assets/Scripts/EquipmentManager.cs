@@ -32,17 +32,24 @@ namespace InventorySystem
             Item itemEquipped = equipmentsData.GetItemFromEquipmentsAt(slotIndex);
             if (itemEquipped == null || itemEquipped.item_name == "")
             {
+                if (item.slot == ItemSlot.Weapon && equipmentsData.isItemEquipped(item))
+                {
+                    int otherSlot = slotIndex == 0 ? 4 : 0;
+                    UnEquipItem(equipmentsData.GetItemFromEquipmentsAt(otherSlot),otherSlot);
+                }
                 EquipItem(item, slotIndex);          //equip at Empty Place
             }
-            else
-            if (item.item_name != itemEquipped.item_name)      //is item already in the same slot?
+            else if (item.item_name != itemEquipped.item_name)      //is item already in the same slot?
             {
-                if (itemEquipped != null)
+                if (item.slot == ItemSlot.Weapon && equipmentsData.isItemEquipped(item))            //is item already equipped?
+                {
+                    int otherSlot = slotIndex == 0 ? 4 : 0;
+                    EquipItem(itemEquipped, otherSlot);                     //equip item that is here in other hand
+                }else if (itemEquipped != null)
                 {
                     UnEquipItem(itemEquipped, slotIndex);                    //remove Item before Adding new one
                 }
-                                                                            //Equip after Dequiping
-                EquipItem(item, slotIndex);
+                EquipItem(item, slotIndex);                                 //Equip after Dequiping or swap
             }
             else
             {
@@ -56,6 +63,8 @@ namespace InventorySystem
         void EquipItem(Item item, int slotIndex)
         {
             Debug.Log("Equipping:" + item.item_name);
+
+           
             switch (item.slot)
             {
                 case ItemSlot.Weapon:

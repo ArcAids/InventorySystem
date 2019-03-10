@@ -1160,7 +1160,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2225415221968182939}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &2225415221968182937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,8 +1257,10 @@ MonoBehaviour:
   scrollArea: {fileID: 2225415221968182935}
   itemPrefab: {fileID: 8618385219525689900, guid: 83536d4c386081f40bf096b55040bd50,
     type: 3}
+  sortDropDown: {fileID: 0}
   ItemInventoryParent: {fileID: 2225415222860944484}
-  sortBy: 0
+  inventoryScreen: {fileID: 0}
+  sortBy: 2
 --- !u!1 &2225415222047631031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1466,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2225415222984275590}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1505,7 +1507,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000016258628, y: 0.000010408706}
+  m_AnchoredPosition: {x: 0.000016258628, y: 0.000023284756}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2225415222860944483

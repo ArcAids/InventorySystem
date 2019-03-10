@@ -112,6 +112,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &152609106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 548960258, guid: 0c060874a53fcc340b5b5cab7961de97,
+    type: 3}
+  m_PrefabInstance: {fileID: 1105276991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 853051423, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &503859825 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2749126082820654992, guid: 83185f0a40657c74f9361548d86046eb,
@@ -200,18 +212,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &645056168 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5915141597475033869, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-    type: 3}
-  m_PrefabInstance: {fileID: 2071357864}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6b42834dd9d5ae4abb67c5983312e74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &744860053 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1965335841831614419, guid: 6b53d01f810bb644ba8ab9b8d073affe,
@@ -470,11 +470,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2225415222860944484, guid: 0c060874a53fcc340b5b5cab7961de97,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.000010985541
-      objectReference: {fileID: 0}
     - target: {fileID: 2225415222984275590, guid: 0c060874a53fcc340b5b5cab7961de97,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -485,11 +480,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2225415222984275590, guid: 0c060874a53fcc340b5b5cab7961de97,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 862420635, guid: 0c060874a53fcc340b5b5cab7961de97, type: 3}
+      propertyPath: inventoryScreen
+      value: 
+      objectReference: {fileID: 2016257338}
+    - target: {fileID: 862420635, guid: 0c060874a53fcc340b5b5cab7961de97, type: 3}
+      propertyPath: sortDropDown
+      value: 
+      objectReference: {fileID: 152609106}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c060874a53fcc340b5b5cab7961de97, type: 3}
 --- !u!1 &1503838565
@@ -642,8 +640,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2016257339}
   - component: {fileID: 2016257341}
-  - component: {fileID: 2016257340}
   - component: {fileID: 2016257342}
+  - component: {fileID: 2016257340}
   m_Layer: 5
   m_Name: Inventory Screen
   m_TagString: Untagged
@@ -1461,11 +1459,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5915141596937598117, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 5915141596937598116, guid: 6b53d01f810bb644ba8ab9b8d073affe,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -1776,55 +1769,10 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033878, guid: 6b53d01f810bb644ba8ab9b8d073affe,
+    - target: {fileID: 5915141597475033869, guid: 6b53d01f810bb644ba8ab9b8d073affe,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: previewStatsOnDequip
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033874, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: m_Spacing.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseUpdated.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseEquip.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseDequip.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 645056168}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EquipmentsUpdated
-      objectReference: {fileID: 0}
-    - target: {fileID: 5915141597475033871, guid: 6b53d01f810bb644ba8ab9b8d073affe,
-        type: 3}
-      propertyPath: responseUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b53d01f810bb644ba8ab9b8d073affe, type: 3}
@@ -1839,11 +1787,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DescriptionPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 2749126082820654993, guid: 83185f0a40657c74f9361548d86046eb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2749126082820654992, guid: 83185f0a40657c74f9361548d86046eb,
         type: 3}

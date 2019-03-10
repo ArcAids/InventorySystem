@@ -7,6 +7,8 @@ namespace InventorySystem
     public class InventoryData: ScriptableObject
     {
         public EquippedGears gears;
+        public bool isDefaultHandRight=true;
+        public SortBy sortSave;
 
         private List<OnEquipmentChangedEventListener> eventListeners = new List<OnEquipmentChangedEventListener>();
 
@@ -48,7 +50,12 @@ namespace InventorySystem
                     return 0;
             }
             else
-                return 4;
+            {
+                if (isDefaultHandRight)
+                    return 4;
+                else
+                    return 0;
+            }
         }
 
         public bool isItemEquipped(Item item)

@@ -6,14 +6,14 @@ using System.Linq;
 
 namespace InventorySystem
 {
-    public class Inventory : EquipmentManager,IRecievable
-    {
-        public enum SortBy
+    public enum SortBy
         {
             NAME,
             CLASS,
             TYPE
         }
+    public class Inventory : EquipmentManager,IRecievable
+    {
         [SerializeField]
         ItemConfig itemsList;
         [SerializeField]
@@ -21,7 +21,11 @@ namespace InventorySystem
         [SerializeField]
         ItemUI itemPrefab;
         [SerializeField]
+        Dropdown sortDropDown;
+        [SerializeField]
         Transform ItemInventoryParent;
+        [SerializeField]
+        GameObject inventoryScreen;
 
         [SerializeField]
         SortBy sortBy;
@@ -30,26 +34,67 @@ namespace InventorySystem
 
         Dictionary<string, ItemUI> inventoryItems = new Dictionary<string, ItemUI>();
 
-        private void Awake()
+        private void OnEnable()
         {
             foreach (var item in itemsList.items)
             {
-                ItemUI itemUI =Instantiate(itemPrefab, ItemInventoryParent).GetComponent<ItemUI>();
-                itemUI.Initialize(item,scrollArea);
-                inventoryItems.Add(item.item_name,itemUI);
+                AddItemUIs(item);
+            }
+            sortBy = equipmentsData.sortSave;
+            sortDropDown.value = (int)sortBy;
+            Sort();
+        }
+
+        private void OnDisable()
+        {
+            foreach (var item in inventoryItems)
+            {
+                Destroy(item.Value.gameObject);
+            }
+            inventoryItems.Clear();
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                inventoryScreen.SetActive(!inventoryScreen.activeSelf);
             }
         }
-        private void Start()
+
+        public static Color GetClassColor(ItemClass itemClass)
         {
-            //if (inventoryItems.Count > 0)
-            //    inventoryItems[0].Select();
-            Sort();
-            
+            switch (itemClass)
+            {
+                case ItemClass.Common:
+                    return Color.gray;
+                case ItemClass.Uncommon:
+                    return Color.green;
+                case ItemClass.Rare:
+                    return Color.blue;
+                case ItemClass.Legendary:
+                    return Color.yellow;
+                case ItemClass.Mythical:
+                    return Color.cyan;
+                default:
+                    return Color.white;
+            }
         }
+
+
+        void AddItemUIs(Item item)
+        {
+            ItemUI itemUI = Instantiate(itemPrefab, ItemInventoryParent).GetComponent<ItemUI>();
+            itemUI.Initialize(item, scrollArea);
+            inventoryItems.Add(item.item_name, itemUI);
+        }
+
+
 
         public void SortByChange(int sortBy)
         {
             this.sortBy = (SortBy)sortBy;
+            equipmentsData.sortSave=this.sortBy;
             Sort();
         }
 
@@ -57,23 +102,19 @@ namespace InventorySystem
         {
             if (inventoryItems.ContainsKey(item.item.item_name))
             {
-                Debug.Log("item equiping:"+item.item.item_name);
                 inventoryItems[item.item.item_name].RemoveItem();
             }
         }
 
         public void DequipItem(ItemAndSlot item)
         {
-            if (item.item == null)
+            if (item.item == null || item.item.item_name==null)
             {
                 Debug.Log("item null", gameObject);
                 return;
             }
-                
             if (inventoryItems.ContainsKey(item.item.item_name))
             {
-                Debug.Log("item dequiping:"+item.item.item_name);
-                inventoryItems[item.item.item_name].UpdateInfo(item.item);
                 inventoryItems[item.item.item_name].Select();
             }
             Sort();
@@ -104,6 +145,7 @@ namespace InventorySystem
                 if (!equipmentsData.isItemEquipped(item.itemInfo))
                 {
                     item.transform.SetSiblingIndex(i);
+                    item.ShowItem();
                     i++;
                 }
                 else
@@ -111,26 +153,6 @@ namespace InventorySystem
             }
         }
 
-       
-
-        public static Color GetClassColor(ItemClass itemClass)
-        {
-            switch (itemClass)
-            {
-                case ItemClass.Common:
-                    return Color.gray;
-                case ItemClass.Uncommon:
-                    return Color.green;
-                case ItemClass.Rare:
-                    return Color.blue;
-                case ItemClass.Legendary:
-                    return Color.yellow;
-                case ItemClass.Mythical:
-                    return Color.cyan;
-                default:
-                    return Color.white;
-            }
-        }
 
         public void OnObjectAdded(GameObject selectedObject)
         {

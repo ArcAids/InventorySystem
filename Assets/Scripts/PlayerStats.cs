@@ -55,6 +55,8 @@ namespace InventorySystem
         ItemData overAllStats;
         ItemData tempOverAllStats;
         [SerializeField]
+        bool previewStatsOnDequip;
+        [SerializeField]
         InventoryData equipments;
 
         EquippedGears previewEquipments;
@@ -110,33 +112,33 @@ namespace InventorySystem
                     case ItemSlot.Weapon:
                         if (equipments.IsWeaponAlreadyEquipped(item.item_name) == 0)
                         {
-                            if (equipments.isItemEquipped(item))
+                            if (previewStatsOnDequip && equipments.isItemEquipped(item))
                                 previewEquipments.weapon2Gear = null;
                             else
                                 previewEquipments.weapon2Gear = item;
                         }
                         else
                         {
-                            if (equipments.isItemEquipped(item))
+                            if (previewStatsOnDequip && equipments.isItemEquipped(item))
                                 previewEquipments.weapon1Gear = null;
                             else
                                 previewEquipments.weapon1Gear = item;   
                         }
                         break;
                     case ItemSlot.Head:
-                        if (equipments.isItemEquipped(item))
+                        if (previewStatsOnDequip && equipments.isItemEquipped(item))
                             previewEquipments.headGear = null;
                         else
                             previewEquipments.headGear = item;
                         break;
                     case ItemSlot.Body:
-                        if (equipments.isItemEquipped(item))
+                        if (previewStatsOnDequip && equipments.isItemEquipped(item))
                             previewEquipments.bodyGear = null;
                         else
                             previewEquipments.bodyGear = item;
                         break;
                     case ItemSlot.Feet:
-                        if (equipments.isItemEquipped(item))
+                        if (previewStatsOnDequip && equipments.isItemEquipped(item))
                             previewEquipments.LegsGear = null;
                         else
                             previewEquipments.LegsGear = item;
