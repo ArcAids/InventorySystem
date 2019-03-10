@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f24df1c7712a1d94d8af30bbdaf207a2, type: 3}
-  m_Name: EquipmentsUpdatedEvent
+  m_Name: EquipmentData
   m_EditorClassIdentifier: 
   gears:
     headGear:
-      icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-      item_name: Dragonscale Helmet
+      icon: {fileID: 0}
+      item_name: Valkyrie Helm
       description: Placeholder description
-      item_class: 3
+      item_class: 1
       slot: 1
       damage: 0
-      defence: 101
-      strength: 37
+      defence: 62
+      strength: 21
       agility: 0
       intel: 0
       mythicalBoost:
@@ -42,16 +42,16 @@ MonoBehaviour:
         boostsThis: 2
         byPercentage: 200
     weapon2Gear:
-      icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-      item_name: Buckler
+      icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+      item_name: Frost Scepter
       description: Placeholder description
-      item_class: 0
+      item_class: 1
       slot: 0
-      damage: 5
-      defence: 23
-      strength: 17
-      agility: 0
-      intel: 0
+      damage: 80
+      defence: 5
+      strength: 5
+      agility: 11
+      intel: 19
       mythicalBoost:
         boostsThis: 0
         byPercentage: 0
@@ -70,17 +70,18 @@ MonoBehaviour:
         boostsThis: 0
         byPercentage: 0
     LegsGear:
-      icon: {fileID: 0}
-      item_name: 
-      description: 
+      icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+      item_name: Leather Boots
+      description: Placeholder description
       item_class: 0
-      slot: 0
+      slot: 3
       damage: 0
-      defence: 0
-      strength: 0
-      agility: 0
+      defence: 3
+      strength: 1
+      agility: 11
       intel: 0
       mythicalBoost:
         boostsThis: 0
         byPercentage: 0
   isDefaultHandRight: 1
+  sortSave: 2

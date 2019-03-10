@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace InventorySystem
 {
@@ -33,6 +33,16 @@ namespace InventorySystem
         ItemUI selectedItem=null;
 
         Dictionary<string, ItemUI> inventoryItems = new Dictionary<string, ItemUI>();
+
+        private void Awake()
+        {
+            if (inventoryScreen == null)
+                inventoryScreen = transform.parent.gameObject;
+            if (scrollArea == null)
+                scrollArea = GetComponentInChildren<ScrollRect>();
+            if (sortDropDown == null)
+                sortDropDown = GetComponentInChildren<Dropdown>();
+        }
 
         private void OnEnable()
         {

@@ -69,7 +69,7 @@ namespace InventorySystem
         public void EquipmentsUpdated()
         {
             overAllStats = new ItemData();
-            GetCurrentValues(equipments.gears, overAllStats);
+            UpdateStatsForSet(equipments.gears, overAllStats);
             CalculateAdditionalStats(overAllStats);
             CalculateMythicalBoost(equipments.gears, overAllStats);
             UpdateUIValues();
@@ -80,24 +80,26 @@ namespace InventorySystem
             PreviewInfo(CalculatePreviewValues(item.itemInfo));
         }
         
-        public void ItemEquipped(ItemAndSlot item)
-        {
-            if (item == null)
-                return;
-            AddStats(item.item, overAllStats);
-            CalculateAdditionalStats(overAllStats);
-            CalculateMythicalBoost(equipments.gears, overAllStats);
-            UpdateUIValues();
-        }
-        public void ItemDequipped(ItemAndSlot item)
-        {
-            if (item == null)
-                return;
-            SubstractStatsForItem(item.item, overAllStats);
-            CalculateAdditionalStats(overAllStats);
-            CalculateMythicalBoost(equipments.gears, overAllStats);
-            UpdateUIValues();
-        }
+        //public void ItemEquipped(ItemAndSlot item)
+        //{
+        //    if (item == null)
+        //        return;
+        //    AddStats(item.item, overAllStats);
+        //    CalculateAdditionalStats(overAllStats);
+        //    CalculateMythicalBoost(equipments.gears, overAllStats);
+        //    UpdateUIValues();
+        //}
+
+
+        //public void ItemDequipped(ItemAndSlot item)
+        //{
+        //    if (item == null)
+        //        return;
+        //    SubstractStatsForItem(item.item, overAllStats);
+        //    CalculateAdditionalStats(overAllStats);
+        //    CalculateMythicalBoost(equipments.gears, overAllStats);
+        //    UpdateUIValues();
+        //}
 
 
         ItemData CalculatePreviewValues(Item item = null)
@@ -151,7 +153,7 @@ namespace InventorySystem
                 return null;
 
             tempOverAllStats = new ItemData();
-            GetCurrentValues(previewEquipments, tempOverAllStats);
+            UpdateStatsForSet(previewEquipments, tempOverAllStats);
 
             CalculateAdditionalStats(tempOverAllStats);
             CalculateMythicalBoost(previewEquipments,tempOverAllStats);
@@ -225,7 +227,7 @@ namespace InventorySystem
             data.mana= data.intel * 14;
         }
 
-        void GetCurrentValues(EquippedGears gears, ItemData stats)
+        void UpdateStatsForSet(EquippedGears gears, ItemData stats)
         {
             AddStats(gears.headGear, stats);
             AddStats(gears.bodyGear, stats);

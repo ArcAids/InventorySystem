@@ -43,6 +43,7 @@ namespace InventorySystem
         {
             if(scrollView!=null)
             scrollView.enabled = true;
+            ShowItem();
         }
 
 

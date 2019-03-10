@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,7 +23,6 @@ namespace InventorySystem {
         Vector2 mousePosition;
 
         bool dragged = false;
-        bool isActive = false;
         GameObject selectedItem;
 
         IDraggable draggableObject;
@@ -49,22 +47,9 @@ namespace InventorySystem {
             draggedItemPreviewImage.gameObject.SetActive(false);
         }
 
-        private void OnEnable()
-        {
-            isActive = true;
-        }
-
-        private void OnDisable()
-        {
-            isActive = false;
-        }
-
         // Update is called once per frame
         void Update()
         {
-            if (!isActive)
-                return;
-
             if (Input.GetMouseButtonDown(0))
             {
                 draggableObject= DetectDraggables();
@@ -110,13 +95,13 @@ namespace InventorySystem {
                     recievableObject = DetectRecievables();
                     if (!dragged)
                         return;
-                    if (recievableObject != null && recievableObject!=objectDraggedFrom)         //object is over something other than where it started from.
+                    if (recievableObject != null && objectDraggedFrom!=null && recievableObject!=objectDraggedFrom)         //object is over something other than where it started from. could use better logic..
                     {
-                        recievableObject.OnObjectAdded(selectedItem);
                         draggableObject.OnDragDone();
+                        recievableObject.OnObjectAdded(selectedItem);
                     }
                     else
-                    draggableObject.OnCancelDrag(); 
+                        draggableObject.OnCancelDrag(); 
                     
                 }
             }
@@ -177,7 +162,6 @@ namespace InventorySystem {
     public interface IDraggable
     {
         void Select();
-        void Deselect();
         void OnDragDone();
         void OnCancelDrag();
         Sprite OnStartDrag();
