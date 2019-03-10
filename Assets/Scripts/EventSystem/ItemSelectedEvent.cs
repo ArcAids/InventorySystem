@@ -29,6 +29,8 @@ public class ItemSelectedEvent : ScriptableObject
         if (!eventListeners.Contains(passedEvent))
         {
             eventListeners.Add(passedEvent);
+            if(selectedItem!=null)
+                Raise(selectedItem);
         }
     }
 

@@ -8,6 +8,8 @@ namespace InventorySystem
 {
     public class Description : EquipmentManager
     {
+
+        #region TextBox References
         [SerializeField]
         TMP_Text itemName;
         [SerializeField]
@@ -28,6 +30,8 @@ namespace InventorySystem
         TMP_Text AGI;
         [SerializeField]
         TMP_Text INT;
+        #endregion
+
         Item item;
 
         [SerializeField]

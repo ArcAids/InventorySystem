@@ -340,3 +340,7 @@ MonoBehaviour:
     strength: 0
     agility: 0
     intel: 0
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
+  isEquipped: 0

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace InventorySystem
@@ -30,8 +29,8 @@ namespace InventorySystem
 
         public int IsWeaponAlreadyEquipped(string weaponName)
         {
-            bool weapon1SlotEmpty = gears.weapon1Gear == null;
-            bool weapon2SlotEmpty = gears.weapon2Gear == null;
+            bool weapon1SlotEmpty = (gears.weapon1Gear == null || gears.weapon1Gear.item_name ==  null || gears.weapon1Gear.item_name == "");
+            bool weapon2SlotEmpty = (gears.weapon2Gear == null || gears.weapon2Gear.item_name ==  null || gears.weapon2Gear.item_name ==  "");
             bool isWeaponEquippedAt1 = (!weapon1SlotEmpty && gears.weapon1Gear.item_name == weaponName);
             bool isWeaponEquippedAt2 = (!weapon2SlotEmpty && gears.weapon2Gear.item_name == weaponName);
             if (isWeaponEquippedAt1 || isWeaponEquippedAt2)
@@ -43,13 +42,44 @@ namespace InventorySystem
             }
             else if (weapon2SlotEmpty || weapon1SlotEmpty)
             {
-                if (weapon2SlotEmpty)
-                    return 0;
-                else
+                if (weapon1SlotEmpty)
                     return 4;
+                else
+                    return 0;
             }
             else
                 return 4;
+        }
+
+        public bool isItemEquipped(Item item)
+        {
+            switch (item.slot)
+            {
+                case ItemSlot.Weapon:
+                    if ((gears.weapon1Gear != null && item.item_name == gears.weapon1Gear.item_name)
+                        ||
+                        (gears.weapon2Gear != null && item.item_name == gears.weapon2Gear.item_name))
+                        return true;
+                    else
+                        return false;
+                case ItemSlot.Head:
+                    if (gears.headGear != null && item.item_name == gears.headGear.item_name)
+                        return true;
+                    else
+                        return false;
+                case ItemSlot.Body:
+                    if (gears.bodyGear != null && item.item_name == gears.bodyGear.item_name)
+                        return true;
+                    else
+                        return false;
+                case ItemSlot.Feet:
+                    if (gears.LegsGear != null && item.item_name == gears.LegsGear.item_name)
+                        return true;
+                    else
+                        return false;
+                default:
+                    return false;
+            }
         }
 
         public void EquipmentsUpdated()
@@ -102,5 +132,17 @@ namespace InventorySystem
         public Item bodyGear;
         public Item LegsGear;
 
+        public EquippedGears GetClone()
+        {
+            EquippedGears clone = new EquippedGears
+            {
+                headGear = headGear,
+                weapon1Gear = weapon1Gear,
+                weapon2Gear = weapon2Gear,
+                bodyGear = bodyGear,
+                LegsGear = LegsGear
+            };
+            return clone;
+        }
     }
 }

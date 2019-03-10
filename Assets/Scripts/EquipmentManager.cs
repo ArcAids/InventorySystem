@@ -21,6 +21,7 @@ namespace InventorySystem
             {
                 slotIndex = equipmentsData.IsWeaponAlreadyEquipped(item.item_name);
             }
+            Debug.Log(slotIndex);
             EquipOrDequipItem(item, slotIndex);
         }
 
@@ -106,8 +107,6 @@ namespace InventorySystem
             }
             equipmentsData.EquipmentDequiped(new ItemAndSlot(item, slotIndex));
         }
-
-
 
     }
 

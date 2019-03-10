@@ -16,14 +16,9 @@ namespace InventorySystem
         TMP_Text itemName;
         [SerializeField]
         Image itemBackground;
-        [SerializeField]
-        Color selectedColor;
-        [SerializeField]
-        Color defaultColor;
         
         ScrollRect scrollView;
         public Item itemInfo;
-        public bool isEquipped=false;
 
         public void OnCancelDrag()
         {
@@ -34,21 +29,21 @@ namespace InventorySystem
 
         public void Deselect()
         {
-            itemBackground.color=Inventory.GetClassColor(itemInfo.item_class);
+
+            gameObject.transform.localScale = Vector3.one;
+            //itemBackground.color=Inventory.GetClassColor(itemInfo.item_class);
         }
 
+        public void Select()
+        {
+            gameObject.transform.localScale = Vector3.one * 1.2f;
+            itemSelectedEvents.Raise(this);
+        }
         public void OnDragDone()
         {
             if(scrollView!=null)
             scrollView.enabled = true;
         }
-
-        public void Select()
-        {
-            itemBackground.color=selectedColor;
-            itemSelectedEvents.Raise(this);
-        }
-
 
 
         public Sprite OnStartDrag()
@@ -62,7 +57,6 @@ namespace InventorySystem
         public void HideItem()
         {
             transform.localScale = Vector3.zero;
-            isEquipped = false;
         }
 
         public void RemoveItem()
@@ -90,15 +84,6 @@ namespace InventorySystem
             itemName.text = itemInfo.item_name;
             itemBackground.color = Inventory.GetClassColor(item.item_class);
             ShowItem();
-        }
-        public int CompareTo(ItemUI other)
-        {
-            return 0;
-        }
-
-        public int CompareTo(int other)
-        {
-            throw new NotImplementedException();
         }
     }
 }

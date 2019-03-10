@@ -101,7 +101,7 @@ namespace InventorySystem
             int i = 0;
             foreach (var item in itemsList)
             {
-                if (!isItemEquipped(item.itemInfo))
+                if (!equipmentsData.isItemEquipped(item.itemInfo))
                 {
                     item.transform.SetSiblingIndex(i);
                     i++;
@@ -111,36 +111,7 @@ namespace InventorySystem
             }
         }
 
-        bool isItemEquipped(Item item)
-        {
-            switch (item.slot)
-            {
-                case ItemSlot.Weapon:
-                    if ((equipmentsData.gears.weapon1Gear!=null && item.item_name == equipmentsData.gears.weapon1Gear.item_name) 
-                        ||
-                        (equipmentsData.gears.weapon2Gear!=null && item.item_name == equipmentsData.gears.weapon2Gear.item_name))
-                        return true;
-                    else
-                        return false;
-                case ItemSlot.Head:
-                    if (equipmentsData.gears.headGear!=null && item.item_name == equipmentsData.gears.headGear.item_name)
-                        return true;
-                    else
-                        return false;
-                case ItemSlot.Body:
-                    if (equipmentsData.gears.bodyGear != null && item.item_name == equipmentsData.gears.bodyGear.item_name)
-                        return true;
-                    else
-                        return false;
-                case ItemSlot.Feet:
-                    if (equipmentsData.gears.LegsGear != null && item.item_name == equipmentsData.gears.LegsGear.item_name)
-                        return true;
-                    else
-                        return false;
-                default:
-                    return false;
-            }
-        }
+       
 
         public static Color GetClassColor(ItemClass itemClass)
         {

@@ -23,6 +23,9 @@ MonoBehaviour:
     strength: 5
     agility: 11
     intel: 19
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Leather Boots
     description: Placeholder description
@@ -33,6 +36,9 @@ MonoBehaviour:
     strength: 1
     agility: 11
     intel: 0
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Shadow Greaves
     description: Placeholder description
@@ -43,6 +49,9 @@ MonoBehaviour:
     strength: 6
     agility: 35
     intel: 3
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Dragonscale Helmet
     description: Placeholder description
@@ -53,6 +62,9 @@ MonoBehaviour:
     strength: 37
     agility: 0
     intel: 0
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Netherworld Bow
     description: Placeholder description
@@ -63,6 +75,9 @@ MonoBehaviour:
     strength: 13
     agility: 38
     intel: 23
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
     item_name: Buckler
     description: Placeholder description
@@ -73,6 +88,9 @@ MonoBehaviour:
     strength: 17
     agility: 0
     intel: 0
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Leather Tunic
     description: Placeholder description
@@ -83,6 +101,9 @@ MonoBehaviour:
     strength: 7
     agility: 3
     intel: 2
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Dragonslayer Breatsplate
     description: Placeholder description
@@ -93,6 +114,9 @@ MonoBehaviour:
     strength: 37
     agility: 0
     intel: 0
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Assassin Helmet
     description: Placeholder description
@@ -103,6 +127,9 @@ MonoBehaviour:
     strength: 28
     agility: 35
     intel: 10
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Pandemonium
     description: Placeholder description
@@ -113,6 +140,9 @@ MonoBehaviour:
     strength: 67
     agility: 63
     intel: 5
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: The Sword of the War God
     description: Placeholder description
@@ -123,6 +153,9 @@ MonoBehaviour:
     strength: 57
     agility: 33
     intel: 19
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 20
   - icon: {fileID: 0}
     item_name: Graven's Crystal Chest
     description: Placeholder description
@@ -133,6 +166,9 @@ MonoBehaviour:
     strength: 70
     agility: 0
     intel: 10
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Luminorum
     description: Placeholder description
@@ -143,6 +179,9 @@ MonoBehaviour:
     strength: 39
     agility: 0
     intel: 13
+    mythicalBoost:
+      boostsThis: 2
+      byPercentage: 200
   - icon: {fileID: 0}
     item_name: Berserker Spike
     description: Placeholder description
@@ -153,6 +192,9 @@ MonoBehaviour:
     strength: 30
     agility: 5
     intel: 5
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Talon Chest
     description: Placeholder description
@@ -163,6 +205,9 @@ MonoBehaviour:
     strength: 17
     agility: 0
     intel: 0
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
   - icon: {fileID: 0}
     item_name: Valkyrie Helm
     description: Placeholder description
@@ -173,3 +218,6 @@ MonoBehaviour:
     strength: 21
     agility: 0
     intel: 0
+    mythicalBoost:
+      boostsThis: 0
+      byPercentage: 0
