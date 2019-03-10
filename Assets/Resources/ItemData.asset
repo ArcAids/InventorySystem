@@ -181,7 +181,7 @@ MonoBehaviour:
     intel: 13
     mythicalBoost:
       boostsThis: 2
-      byPercentage: 200
+      byPercentage: 20
   - icon: {fileID: 0}
     item_name: Berserker Spike
     description: Placeholder description

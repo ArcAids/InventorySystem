@@ -29,6 +29,20 @@ MonoBehaviour:
         byPercentage: 0
     weapon1Gear:
       icon: {fileID: 0}
+      item_name: The Sword of the War God
+      description: Placeholder description
+      item_class: 4
+      slot: 0
+      damage: 333
+      defence: 45
+      strength: 57
+      agility: 33
+      intel: 19
+      mythicalBoost:
+        boostsThis: 0
+        byPercentage: 20
+    weapon2Gear:
+      icon: {fileID: 0}
       item_name: Luminorum
       description: Placeholder description
       item_class: 4
@@ -40,21 +54,7 @@ MonoBehaviour:
       intel: 13
       mythicalBoost:
         boostsThis: 2
-        byPercentage: 200
-    weapon2Gear:
-      icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-      item_name: Frost Scepter
-      description: Placeholder description
-      item_class: 1
-      slot: 0
-      damage: 80
-      defence: 5
-      strength: 5
-      agility: 11
-      intel: 19
-      mythicalBoost:
-        boostsThis: 0
-        byPercentage: 0
+        byPercentage: 20
     bodyGear:
       icon: {fileID: 0}
       item_name: Leather Tunic
@@ -84,4 +84,4 @@ MonoBehaviour:
         boostsThis: 0
         byPercentage: 0
   isDefaultHandRight: 1
-  sortSave: 2
+  sortSave: 1

@@ -12,10 +12,9 @@ public enum StatToBoost
 {
     damage,
     defence,
-    HP,
-    mana,
-    critical,
-    parry
+    STR,
+    INT,
+    AGI
 }
 
 namespace InventorySystem
@@ -70,8 +69,8 @@ namespace InventorySystem
         {
             overAllStats = new ItemData();
             UpdateStatsForSet(equipments.gears, overAllStats);
-            CalculateAdditionalStats(overAllStats);
             CalculateMythicalBoost(equipments.gears, overAllStats);
+            CalculateAdditionalStats(overAllStats);
             UpdateUIValues();
         }
 
@@ -155,8 +154,8 @@ namespace InventorySystem
             tempOverAllStats = new ItemData();
             UpdateStatsForSet(previewEquipments, tempOverAllStats);
 
-            CalculateAdditionalStats(tempOverAllStats);
             CalculateMythicalBoost(previewEquipments,tempOverAllStats);
+            CalculateAdditionalStats(tempOverAllStats);
             return tempOverAllStats;
         }
 
@@ -185,11 +184,10 @@ namespace InventorySystem
         void AddStatsInfo(ItemData stats,ItemData stats2)
         {
             stats.damage += stats2.damage;
-            stats.dodgeChance += stats2.dodgeChance;
+            stats.intel += stats2.intel;
             stats.defence += stats2.defence;
-            stats.critical += stats2.critical;
-            stats.HP += stats2.HP;
-            stats.mana += stats2.mana;
+            stats.strength += stats2.strength;
+            stats.agility += stats2.agility;
         }
 
         void GetBoostedStats(ItemData boostStats,ItemData baseStats, MythicalBoost boost)
@@ -202,17 +200,14 @@ namespace InventorySystem
                 case StatToBoost.defence:
                     boostStats.defence += (baseStats.defence * boost.byPercentage/100);
                     break;
-                case StatToBoost.HP:
-                    boostStats.HP += (baseStats.HP * boost.byPercentage/100);
+                case StatToBoost.STR:
+                    boostStats.strength += (baseStats.strength * boost.byPercentage/100);
                     break;
-                case StatToBoost.mana:
-                    boostStats.mana += (baseStats.mana * boost.byPercentage/100);
+                case StatToBoost.INT:
+                    boostStats.intel += (baseStats.intel * boost.byPercentage/100);
                     break;
-                case StatToBoost.critical:
-                    boostStats.critical +=(baseStats.critical * boost.byPercentage/100);
-                    break;
-                case StatToBoost.parry:
-                    boostStats.dodgeChance += (baseStats.dodgeChance * boost.byPercentage/100);
+                case StatToBoost.AGI:
+                    boostStats.agility +=(baseStats.agility * boost.byPercentage/100);
                     break;
                 default:
                     break;
