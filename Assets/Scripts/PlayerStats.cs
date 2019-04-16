@@ -256,7 +256,7 @@ namespace InventorySystem
 
         void PreviewInfo(ItemData item)
         {
-            if (item!=null)
+            if (item!=null && overAllStats!=null)
             {
                 SetPreviewString(damageText, overAllStats.damage, item.damage);
                 SetPreviewString(defenceText, overAllStats.defence, item.defence);
